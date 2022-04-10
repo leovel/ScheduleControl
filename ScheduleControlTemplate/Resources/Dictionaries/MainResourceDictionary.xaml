@@ -170,39 +170,15 @@
         </Grid>
     </DataTemplate>
 
-    <!--#region LISTA DE FUNCIONÁRIOS-->
-    <DataTemplate DataType="{x:Type viewModels:FuncionariosViewModel}">
-        <views:FuncionariosView />
+    <!--#region CONFIGURATOR-->
+    <DataTemplate DataType="{x:Type viewModels:ScheduleControlViewModel}">
+        <views:ScheduleControlView />
     </DataTemplate>
     <!--#endregion-->
 
-    <!--#region FUNCIONÁRIO-->
-    <DataTemplate DataType="{x:Type viewModels:FuncionarioViewModel}">
-        <views:FuncionarioView />
-    </DataTemplate>
-    <!--#endregion-->
-
-    <!--#region LISTA DE ÁREAS-->
-    <DataTemplate DataType="{x:Type viewModels:AreasViewModel}">
-        <views:AreasView />
-    </DataTemplate>
-    <!--#endregion-->
-
-    <!--#region ÁREAS-->
-    <DataTemplate DataType="{x:Type viewModels:AreaViewModel}">
-        <views:AreaView />
-    </DataTemplate>
-    <!--#endregion-->
-
-    <!--#region IDENTIFICAÇÃO REPORT TEMPLATE-->
-    <DataTemplate DataType="{x:Type viewModels:IdentificacaoReportViewModel}">
+    <!--#region EDITOR-->
+    <!--<DataTemplate DataType="{x:Type viewModels:IdentificacaoReportViewModel}">
         <views:IdentificacaoReportView />
-    </DataTemplate>
-    <!--#endregion-->
-
-    <!--#region EDITOR DE IMÁGENS-->
-    <DataTemplate DataType="{x:Type viewModels:ImageEditorViewModel}">
-        <views:ImageEditorView />
-    </DataTemplate>
+    </DataTemplate>-->
     <!--#endregion-->
 </ResourceDictionary>

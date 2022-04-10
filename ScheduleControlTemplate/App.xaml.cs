@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ScheduleControlTemplate.Data.Infrastructure;
+using ScheduleControlTemplate.Data.Services;
 using ScheduleControlTemplate.ViewModels;
 using ScheduleControlTemplate.Views;
 using System;
@@ -45,7 +46,7 @@ namespace ScheduleControlTemplate
                 UsersCollectionName = configuration.GetSection("TmsReplicaDatabase")["UsersCollectionName"]
             });
             //services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
-            //services.AddTransient<IAreaRepository, AreaRepository>();
+            services.AddSingleton<ScheduleControlDataService>();
             services.AddSingleton<ScheduleControlViewModel>();
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<MainWindow>();
