@@ -8,10 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Telerik.Windows.Controls;
 
 namespace ScheduleControlTemplate
 {
@@ -22,10 +25,16 @@ namespace ScheduleControlTemplate
     {
         public App()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("es");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
+            this.
+
             configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
+
+            StyleManager.ApplicationTheme = new FluentTheme();
 
             ServiceCollection services = new();
             ConfigureServices(services);

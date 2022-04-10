@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleControlTemplate", "ScheduleControlTemplate\ScheduleControlTemplate.csproj", "{7194AEC5-4415-4E59-AF96-B86E6F1ACD64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsoleApp", "TestConsoleApp\TestConsoleApp.csproj", "{203B3B7F-6AC8-4DD4-B187-5D8B5ED0D958}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7194AEC5-4415-4E59-AF96-B86E6F1ACD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7194AEC5-4415-4E59-AF96-B86E6F1ACD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7194AEC5-4415-4E59-AF96-B86E6F1ACD64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{203B3B7F-6AC8-4DD4-B187-5D8B5ED0D958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{203B3B7F-6AC8-4DD4-B187-5D8B5ED0D958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{203B3B7F-6AC8-4DD4-B187-5D8B5ED0D958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{203B3B7F-6AC8-4DD4-B187-5D8B5ED0D958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

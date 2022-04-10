@@ -11,8 +11,8 @@ namespace ScheduleControlTemplate.Models
         public string Description { get; set; }
         public Shift AlternativeShift { get; set; }
 
-        public DateOnly From { get; set; }
-        public DateOnly To { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
 
         public bool Active { get; set; } = true;
 

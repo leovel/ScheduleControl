@@ -8,7 +8,7 @@ namespace ScheduleControlTemplate.Models
 {
     public class Holiday
     {
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         public string Description { get; set; }
 
         public bool Bridge { get; set; }
@@ -93,7 +93,7 @@ namespace ScheduleControlTemplate.Models
 
         private static void AddBridges(List<Holiday> holidays)
         {
-            HashSet<DateOnly> dates = new();
+            HashSet<DateTime> dates = new();
 
             foreach (var holiday in holidays)
             {
@@ -114,16 +114,16 @@ namespace ScheduleControlTemplate.Models
 
         }
 
-        public static IEnumerable<TemporaryWeekDayRange> GetTemporariesFromBridges(IEnumerable<Holiday> holidays, Shift baseShift, double onDutyDelta = 0.0, double offDutyDelta = 1.5)
+        public static IEnumerable<TemporaryWeekDayRange> GetTemporariesFromBridges(IEnumerable<Holiday> holidays, Shift baseShift, int onDutyDelta = 0, int offDutyDelta = 90)
         {
-            var temporaryShift = new Shift(baseShift.TimeTable.Select( d => new WeekDay
+            var alternativeShift = new Shift(baseShift.TimeTable.Select( d => new WeekDay
             { 
                 Active = d.Active,
                 Day = d.Day,
                 EarlyError = d.EarlyError,
                 LateError = d.LateError,
-                OnDutyTime = d.OnDutyTime.AddHours(onDutyDelta),
-                OffDutyTime = d.OffDutyTime.AddHours(offDutyDelta)
+                OnDutyTime = d.OnDutyTime.Add(new(0, onDutyDelta, 0)),
+                OffDutyTime = d.OffDutyTime.Add(new(0, offDutyDelta, 0))
             }).ToArray());
 
             List<TemporaryWeekDayRange> temporaries = new();
@@ -135,7 +135,7 @@ namespace ScheduleControlTemplate.Models
                         temporaries.Add( new TemporaryWeekDayRange
                         {
                             Description = "Antecedência a Ponte",
-                            AlternativeShift = temporaryShift,
+                            AlternativeShift = alternativeShift,
                             From = bridge.Date.AddDays(-7),
                             To = bridge.Date.AddDays(-3),
                             Active = true
@@ -145,7 +145,7 @@ namespace ScheduleControlTemplate.Models
                         temporaries.Add(new TemporaryWeekDayRange
                         {
                             Description = "Antecedência a Ponte",
-                            AlternativeShift = temporaryShift,
+                            AlternativeShift = alternativeShift,
                             From = bridge.Date.AddDays(-11),
                             To = bridge.Date.AddDays(-7),
                             Active = true
@@ -159,31 +159,31 @@ namespace ScheduleControlTemplate.Models
             return temporaries.OrderBy(t => t.From);
         }
 
-        private static (DateOnly carnaval, DateOnly sextasanta, DateOnly pascoa, DateOnly ccristi) NonStaticHolidays(int year)
+        private static (DateTime carnaval, DateTime sextasanta, DateTime pascoa, DateTime ccristi) NonStaticHolidays(int year)
         {
             int nRest = (year % 19) + 1;
-            DateOnly day = new();
+            DateTime day = new();
             switch (nRest)
             {
-                case 1: day = new DateOnly(year, 4, 14); break;
-                case 2: day = new DateOnly(year, 4, 3); break;
-                case 3: day = new DateOnly(year, 3, 23); break;
-                case 4: day = new DateOnly(year, 4, 11); break;
-                case 5: day = new DateOnly(year, 3, 31); break;
-                case 6: day = new DateOnly(year, 4, 18); break;
-                case 7: day = new DateOnly(year, 4, 8); break;
-                case 8: day = new DateOnly(year, 3, 28); break;
-                case 9: day = new DateOnly(year, 4, 16); break;
-                case 10: day = new DateOnly(year, 4, 5); break;
-                case 11: day = new DateOnly(year, 3, 25); break;
-                case 12: day = new DateOnly(year, 4, 13); break;
-                case 13: day = new DateOnly(year, 4, 2); break;
-                case 14: day = new DateOnly(year, 3, 22); break;
-                case 15: day = new DateOnly(year, 4, 10); break;
-                case 16: day = new DateOnly(year, 3, 30); break;
-                case 17: day = new DateOnly(year, 4, 17); break;
-                case 18: day = new DateOnly(year, 4, 7); break;
-                case 19: day = new DateOnly(year, 3, 27); break;
+                case 1: day = new DateTime(year, 4, 14); break;
+                case 2: day = new DateTime(year, 4, 3); break;
+                case 3: day = new DateTime(year, 3, 23); break;
+                case 4: day = new DateTime(year, 4, 11); break;
+                case 5: day = new DateTime(year, 3, 31); break;
+                case 6: day = new DateTime(year, 4, 18); break;
+                case 7: day = new DateTime(year, 4, 8); break;
+                case 8: day = new DateTime(year, 3, 28); break;
+                case 9: day = new DateTime(year, 4, 16); break;
+                case 10: day = new DateTime(year, 4, 5); break;
+                case 11: day = new DateTime(year, 3, 25); break;
+                case 12: day = new DateTime(year, 4, 13); break;
+                case 13: day = new DateTime(year, 4, 2); break;
+                case 14: day = new DateTime(year, 3, 22); break;
+                case 15: day = new DateTime(year, 4, 10); break;
+                case 16: day = new DateTime(year, 3, 30); break;
+                case 17: day = new DateTime(year, 4, 17); break;
+                case 18: day = new DateTime(year, 4, 7); break;
+                case 19: day = new DateTime(year, 3, 27); break;
             }
             do
             {

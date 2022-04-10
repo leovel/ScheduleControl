@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                     xmlns:viewModels="clr-namespace:ScheduleControlTemplate.ViewModels"
+                    xmlns:models="clr-namespace:ScheduleControlTemplate.Models"
                     xmlns:views="clr-namespace:ScheduleControlTemplate.Views">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="BaseResourceDictionary.xaml"/>
@@ -169,6 +170,12 @@
                                    Text="{Binding Path=Title}"/>
         </Grid>
     </DataTemplate>
+
+    <!--#region SHIFT-->
+    <DataTemplate DataType="{x:Type models:Shift}">
+        <views:ShiftView />
+    </DataTemplate>
+    <!--#endregion-->
 
     <!--#region CONFIGURATOR-->
     <DataTemplate DataType="{x:Type viewModels:ScheduleControlViewModel}">

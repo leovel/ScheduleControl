@@ -10,6 +10,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
+            <TextBlock Text="DATA INICIAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <telerik:RadDateTimePicker SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       InputMode="DatePicker"
+                                       SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"
+                                       Margin="10,8" MinWidth="84" />
+
+            <TextBlock Text="DATA FINAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <telerik:RadDateTimePicker SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       InputMode="DatePicker"
+                                       SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"  Margin="10,8,50,8" MinWidth="184"/>
+
+
+            <TextBlock Text="PONTES (PROLONGADOS)" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <CheckBox IsChecked="{Binding Bridges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,8" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                          ToolTip="Activar se deseja incluir os prolongados"/>
+            <TextBlock Text="AFECTAÇÃO DE PROLONGADO" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <CheckBox IsChecked="{Binding BridgeTemporaries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,8" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                          ToolTip="Activar se deseja adicionar 1h e 30min uma semana antes da ponte"/>
+        </StackPanel>
     </Grid>
+    
 </UserControl>
