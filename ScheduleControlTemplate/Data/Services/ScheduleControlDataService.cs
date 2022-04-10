@@ -23,5 +23,8 @@ namespace ScheduleControlTemplate.Data.Services
         public async Task<List<User>> GetActiveUsersAsync(bool onlyActive = true) => await _usersCollection.Find(u => u.Active == onlyActive).ToListAsync();
         public async Task<List<TransactionLog>> GetUserLogsBetwenAsync(string userGuid, DateTime beginDateTime, DateTime endDateTime) => await _transactionLogsCollection
             .Find(tl => tl.Timestamp >= beginDateTime && tl.Timestamp <= endDateTime && tl.UserGuid == userGuid && tl.TransactionResult == "Identified").ToListAsync();
+
+        public async Task<IAsyncCursor<TransactionLog>> GetUserLogsBetwenEnumerable(string userGuid, DateTime beginDateTime, DateTime endDateTime) => await _transactionLogsCollection
+            .FindAsync(tl => tl.Timestamp >= beginDateTime && tl.Timestamp <= endDateTime && tl.UserGuid == userGuid && tl.TransactionResult == "Identified");
     }
 }

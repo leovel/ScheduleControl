@@ -5,7 +5,7 @@ namespace ScheduleControlTemplate.ViewModels
 {
     public class ReportLoaderViewModel : CustomManagementViewModelBase<ReportLoaderViewModel>
     {
-        private MemoryStream _stream;
+        private readonly MemoryStream _stream;
 
         public ReportLoaderViewModel(byte[] documentSource, IViewModelBase parentViewModel) : base(parentViewModel)
         {

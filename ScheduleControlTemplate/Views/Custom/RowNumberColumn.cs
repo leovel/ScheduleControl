@@ -8,9 +8,7 @@ namespace ScheduleControlTemplate.Views
     {
         public override FrameworkElement CreateCellElement(Telerik.Windows.Controls.GridView.GridViewCell cell, object dataItem)
         {
-            TextBlock textBlock = cell.Content as TextBlock;
-
-            if (textBlock == null)
+            if (cell.Content is not TextBlock textBlock)
             {
                 textBlock = new TextBlock();
             }

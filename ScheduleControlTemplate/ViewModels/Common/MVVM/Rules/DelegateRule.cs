@@ -9,7 +9,7 @@ namespace ScheduleControlTemplate.ViewModels.Rules
     /// <typeparam name="T">The type of the object the rule can be applied to.</typeparam>
     public sealed class DelegateRule<T> : Rule<T>
     {
-        private Func<T, bool> rule;
+        private readonly Func<T, bool> rule;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DelegateRule<T>"/> class.
@@ -20,12 +20,7 @@ namespace ScheduleControlTemplate.ViewModels.Rules
         public DelegateRule(string propertyName, object error, Func<T, bool> rule)
             : base(propertyName, error)
         {
-            if (rule == null)
-            {
-                throw new ArgumentNullException(nameof(rule));
-            }
-
-            this.rule = rule;
+            this.rule = rule ?? throw new ArgumentNullException(nameof(rule));
         }
 
         /// <summary>
