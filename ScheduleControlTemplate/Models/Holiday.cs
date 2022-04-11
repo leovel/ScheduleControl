@@ -13,7 +13,7 @@ namespace ScheduleControlTemplate.Models
 
         public bool Bridge { get; set; }
 
-        private static IEnumerable<Holiday> Holidays(int year, bool addBridges = false)
+        public static IEnumerable<Holiday> Holidays(int year, bool addBridges = false)
         {
             var result = new List<Holiday>
             {

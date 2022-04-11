@@ -29,7 +29,7 @@
         <Setter Property="StrokeThickness" Value="2" />
     </Style>
 
-    <Style TargetType="Border">
+    <Style x:Key="NormalBorderStyle" TargetType="Border">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="2" />
@@ -85,7 +85,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style TargetType="telerik:GroupBox">
+    <Style x:Key="NormalGrupBoxStyle" TargetType="telerik:GroupBox">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="2" />
@@ -99,7 +99,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="telerik:RadExpander">
+    <Style x:Key="NormalRadExpanderStyle" TargetType="telerik:RadExpander">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="2" />
@@ -113,7 +113,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="telerik:RadWatermarkTextBox">
+    <Style x:Key="NormalRadWatermarkTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
         <Setter Property="Margin" Value="0 8 10 8"  />
         <Setter Property="MinHeight" Value="42"  />
         <Style.Triggers>
@@ -124,7 +124,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="telerik:RadComboBox">
+    <Style x:Key="NormalRadComboBoxStyle" TargetType="telerik:RadComboBox">
         <Setter Property="Margin" Value="0 8 10 8" />
         <Setter Property="Height" Value="42"  />
         <Setter Property="IsEditable" Value="False" />
@@ -136,7 +136,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="telerik:RadNumericUpDown">
+    <Style x:Key="NormalRadNumericUpDownStyle" TargetType="telerik:RadNumericUpDown">
         <Setter Property="Margin" Value="0 8 10 8"  />
         <Setter Property="Height" Value="42"  />
         <Style.Triggers>
@@ -147,7 +147,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="telerik:RadDatePicker">
+    <Style x:Key="NormalRadDatePickerStyle"  TargetType="telerik:RadDatePicker">
         <Setter Property="Margin" Value="0 8 10 8"  />
         <Setter Property="Height" Value="42"  />
         <Setter Property="VerticalContentAlignment" Value="Top"  />
@@ -305,7 +305,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="Template" Value="{StaticResource LocalTabControlTemplate}"/>
     </Style>
-    <Style TargetType="telerik:RadMaskedNumericInput">
+    <Style x:Key="NormalRadMaskedNumericInputStyle" TargetType="telerik:RadMaskedNumericInput">
         <Setter Property="HorizontalContentAlignment" Value="Right" />
         <Setter Property="VerticalContentAlignment" Value="Center"  />
         <Setter Property="AllowSkipPlaceholders" Value="True"  />

@@ -27,15 +27,15 @@
                 <telerik:GridViewDataColumn Header="Dia da Semana" IsReadOnly="True"
                                             DataMemberBinding="{Binding DayStr}" Width="Auto"/>
                 <telerik:GridViewDataColumn Header="Hora de Entrada" IsReadOnly="False"
-                                            DataMemberBinding="{Binding OnDutyTime}" />
+                                            DataMemberBinding="{Binding OnDutyTime}" Width=".3*"/>
                 <telerik:GridViewDataColumn Header="Hora de Saída" IsReadOnly="False"
-                                            DataMemberBinding="{Binding OffDutyTime}" />
+                                            DataMemberBinding="{Binding OffDutyTime}" Width=".3*"/>
                 <telerik:GridViewDataColumn Header="T. Entrada" IsReadOnly="False" ToolTip="Tolerância na Entrada"
-														DataMemberBinding="{Binding EarlyError}" />
+														DataMemberBinding="{Binding EarlyError}" Width=".2*"/>
                 <telerik:GridViewDataColumn Header="T. Saída" IsReadOnly="False" ToolTip="Tolerância na Saída"
-														DataMemberBinding="{Binding LateError}" />
+														DataMemberBinding="{Binding LateError}" Width=".2*" />
                 <telerik:GridViewDataColumn Header="Activo" IsReadOnly="False"
-                                            DataMemberBinding="{Binding Active}" />
+                                            DataMemberBinding="{Binding Active}" Width="Auto"/>
             </telerik:RadGridView.Columns>
         </telerik:RadGridView>
     </Grid>

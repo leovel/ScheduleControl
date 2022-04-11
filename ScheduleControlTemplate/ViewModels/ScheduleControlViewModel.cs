@@ -16,6 +16,10 @@ namespace ScheduleControlTemplate.ViewModels
         public ScheduleControlViewModel(ScheduleControlDataService dataService)
         {
             _dataService = dataService;
+
+            TemporaryWeekDayRange.BaseShift = MainShift;
+            FillAllHollidays();
+
             OnRulesPropertyCanged();
         }
 
@@ -24,23 +28,23 @@ namespace ScheduleControlTemplate.ViewModels
             Rules.Add(new DelegateRule<ScheduleControlViewModel>(
                 nameof(Begin),
                 "A Data Inicial deve ser anterior a Data Final",
-                x => x.Begin >= x.End
+                x => x.Begin < x.End
                 ));
             Rules.Add(new DelegateRule<ScheduleControlViewModel>(
                  nameof(End),
                  "A Data Final deve ser posterior Data Inicial",
-                 x => x.Begin >= x.End
+                 x => x.Begin < x.End
                  ));
             Rules.Add(new DelegateRule<ScheduleControlViewModel>(
                  nameof(End),
                  "A Data Final deve ser posterior Data Inicial",
-                 x => x.Begin >= x.End
+                 x => x.Begin < x.End
                  ));
 
             Rules.Add(new DelegateRule<ScheduleControlViewModel>(
                  nameof(End),
                  "A Data Final não pode superar a Data Actual",
-                 x => x.End >= DateTime.Today.AddDays(1)
+                 x => x.End < DateTime.Today.AddDays(1)
                  ));
 
         }
@@ -54,6 +58,7 @@ namespace ScheduleControlTemplate.ViewModels
             {
                 begin = value.Date;
                 OnPropertyChanged(nameof(End));
+                OnPropertyChanged(nameof(Holidays));
             });
         }
 
@@ -66,18 +71,29 @@ namespace ScheduleControlTemplate.ViewModels
             {
                 end = value.Date;
                 OnPropertyChanged(nameof(Begin));
+                OnPropertyChanged(nameof(Holidays));
             });
         }
 
-        public DateTime SelectableDateStart { get; set; } = DateTime.Today.AddYears(-2);
-        public DateTime SelectableDateEnd { get; set; } = DateTime.UtcNow;
+        public DateTime SelectableDateStart { get; } = DateTime.Today.AddYears(-2);
+        public DateTime SelectableDateEnd { get; } = DateTime.UtcNow;
 
         private bool bridges;
 
         public bool Bridges
         {
             get => bridges;
-            set => SetProperty(ref bridges, value);
+            set 
+            {
+                if (SetProperty(ref bridges, value))
+                {
+                    OnPropertyChanged(nameof(Holidays));
+                    if(!value)
+                    {
+                        BridgeTemporaries = false;
+                    }
+                }
+            }
         }
 
         private bool bridgeTemporaries;
@@ -90,8 +106,36 @@ namespace ScheduleControlTemplate.ViewModels
 
         public Shift MainShift { get; } = new();
 
-        public ObservableCollection<Holiday> Holidays { get; } = new();
+        private void FillAllHollidays()
+        {
+            allHolidays.Clear();
+            for (int year = SelectableDateStart.Year; year <= SelectableDateEnd.Year; year++ )
+            {
+                foreach (var holiday in Holiday.Holidays(year, true))
+                {
+                    allHolidays.Add(holiday);
+                }
+            }
+            OnPropertyChanged(nameof(Holidays));
+            FillBridgeTemporaries();
+        }
 
+        private readonly List<Holiday> allHolidays = new();
+        public List<Holiday> Holidays => allHolidays
+            .Where(h => h.Date >= Begin && h.Date <= End && (Bridges || h.Bridge == false))
+            .ToList();
+
+        private readonly List<TemporaryWeekDayRange> bridgeTemporaryList = new();
         public ObservableCollection<TemporaryWeekDayRange> Temporaries { get; } = new();
+
+        private void FillBridgeTemporaries()
+        {
+            bridgeTemporaryList.Clear();
+            foreach (var temporary in Holiday.GetTemporariesFromBridges(Holidays, MainShift))
+            {
+                bridgeTemporaryList.Add(temporary);
+            }
+            OnPropertyChanged(nameof(Temporaries));
+        }
     }
 }

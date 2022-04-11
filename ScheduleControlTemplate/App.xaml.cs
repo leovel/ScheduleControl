@@ -25,8 +25,8 @@ namespace ScheduleControlTemplate
     {
         public App()
         {
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("es");
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo("es");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("pt");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("pt");
             this.
 
             configuration = new ConfigurationBuilder()

@@ -18,23 +18,58 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
             <TextBlock Text="DATA INICIAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
             <telerik:RadDateTimePicker SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                       InputMode="DatePicker"
+                                       InputMode="DatePicker" x:Name="dataInicial"
                                        SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"
-                                       Margin="10,8" MinWidth="84" />
+                                       Margin="10,8" MinWidth="120" />
 
             <TextBlock Text="DATA FINAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <telerik:RadDateTimePicker SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <telerik:RadDateTimePicker SelectedValue="{Binding End, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        InputMode="DatePicker"
-                                       SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"  Margin="10,8,50,8" MinWidth="184"/>
+                                       SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"
+                                       Margin="10,8,50,8" MinWidth="120"/>
 
 
-            <TextBlock Text="PONTES (PROLONGADOS)" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+            <TextBlock Text="PROLONGADOS" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                       ToolTip="Activar se deseja incluir os prolongados"/>
             <CheckBox IsChecked="{Binding Bridges, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,8" HorizontalAlignment="Right" VerticalAlignment="Center"
                                           ToolTip="Activar se deseja incluir os prolongados"/>
-            <TextBlock Text="AFECTAÇÃO DE PROLONGADO" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <CheckBox IsChecked="{Binding BridgeTemporaries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,8" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                          ToolTip="Activar se deseja adicionar 1h e 30min uma semana antes da ponte"/>
+            <TextBlock Text="+1H30" Style="{StaticResource Heading3}"
+                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Visibility="{Binding Bridges, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       ToolTip="Activar se deseja adicionar 1h e 30min uma semana antes da ponte"/>
+            <CheckBox IsChecked="{Binding BridgeTemporaries, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,8"
+                      HorizontalAlignment="Right" VerticalAlignment="Center"
+                      Visibility="{Binding Bridges, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      ToolTip="Activar se deseja adicionar 1h e 30min na semana antes da ponte"/>
         </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".6*" />
+                <ColumnDefinition Width=".4*" />
+            </Grid.ColumnDefinitions>
+            <ContentControl Grid.Column="0" Content="{Binding MainShift}"/>
+            <telerik:RadGridView Grid.Column="1"
+                                 ItemsSource="{Binding Holidays}"
+                                 RowIndicatorVisibility="Collapsed"
+                                 AutoGenerateColumns="False"
+                                 CanUserFreezeColumns="False"
+                                 CanUserResizeColumns="False"
+                                 CanUserGroupColumns="False"
+                                 CanUserDeleteRows="False"
+                                 IsFilteringAllowed="False"
+                                 CanUserInsertRows="False"
+                                 CanUserReorderColumns="False"
+                                 CanUserSortColumns="False"
+                                 ShowGroupPanel="False"
+                                 IsReadOnly="True">
+                <telerik:RadGridView.Columns>
+                    <telerik:GridViewDataColumn Header="Data"
+                                                DataMemberBinding="{Binding Date, StringFormat='{}{0:dd-MM-yyyy}'}" Width=".3*"/>
+                    <telerik:GridViewDataColumn Header="Designação" IsReadOnly="False"
+                                                DataMemberBinding="{Binding Description}" Width=".7*"/>
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+        </Grid>
     </Grid>
     
 </UserControl>
