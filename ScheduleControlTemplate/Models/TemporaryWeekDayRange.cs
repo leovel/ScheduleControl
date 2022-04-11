@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScheduleControlTemplate.Models
 {
@@ -10,7 +6,7 @@ namespace ScheduleControlTemplate.Models
     {
         public static Shift BaseShift { get; set; } = new();
         public string Description { get; set; } = string.Empty;
-        public Shift AlternativeShift { get; set; } = BaseShift;
+        public Shift AlternativeShift { get; set; } = BaseShift.DeltaTimeDeepClone();
 
         public DateTime From { get; set; } = DateTime.Today.AddDays(-7);
         public DateTime To { get; set; } = DateTime.Now;

@@ -26,5 +26,7 @@ foreach (var item in list)
     Console.Write($"{item.Id} => {item.Date}");
     Console.WriteLine();
 }
+Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine();
 
 Console.ReadLine();

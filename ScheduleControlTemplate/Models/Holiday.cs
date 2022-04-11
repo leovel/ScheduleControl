@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ namespace ScheduleControlTemplate.Models
         public string Description { get; set; }
 
         public bool Bridge { get; set; }
+
+        private readonly CultureInfo portuguesse = new("pt");
+        public string DayStr => portuguesse.DateTimeFormat.GetDayName(Date.DayOfWeek);
 
         public static IEnumerable<Holiday> Holidays(int year, bool addBridges = false)
         {
@@ -110,21 +114,13 @@ namespace ScheduleControlTemplate.Models
                 }
             }
 
-            holidays.AddRange(dates.Select(d => new Holiday { Date = d, Description = "Ponte", Bridge = true }));
+            holidays.AddRange(dates.Select(d => new Holiday { Date = d, Description = "Ponte (Prolongado)", Bridge = true }));
 
         }
 
         public static IEnumerable<TemporaryWeekDayRange> GetTemporariesFromBridges(IEnumerable<Holiday> holidays, Shift baseShift, int onDutyDelta = 0, int offDutyDelta = 90)
         {
-            var alternativeShift = new Shift(baseShift.TimeTable.Select( d => new WeekDay
-            { 
-                Active = d.Active,
-                Day = d.Day,
-                EarlyError = d.EarlyError,
-                LateError = d.LateError,
-                OnDutyTime = d.OnDutyTime.Add(new(0, onDutyDelta, 0)),
-                OffDutyTime = d.OffDutyTime.Add(new(0, offDutyDelta, 0))
-            }).ToArray());
+            var alternativeShift = baseShift.DeltaTimeDeepClone(onDutyDelta, offDutyDelta);
 
             List<TemporaryWeekDayRange> temporaries = new();
             foreach (var bridge in holidays.Where(h => h.Bridge))
@@ -134,7 +130,7 @@ namespace ScheduleControlTemplate.Models
                     case DayOfWeek.Monday:
                         temporaries.Add( new TemporaryWeekDayRange
                         {
-                            Description = "Antecedência a Ponte",
+                            Description = "Antecedência a Ponte (+1h30)",
                             AlternativeShift = alternativeShift,
                             From = bridge.Date.AddDays(-7),
                             To = bridge.Date.AddDays(-3),
@@ -144,7 +140,7 @@ namespace ScheduleControlTemplate.Models
                     case DayOfWeek.Friday:
                         temporaries.Add(new TemporaryWeekDayRange
                         {
-                            Description = "Antecedência a Ponte",
+                            Description = "Antecedência a Ponte (+1h30)",
                             AlternativeShift = alternativeShift,
                             From = bridge.Date.AddDays(-11),
                             To = bridge.Date.AddDays(-7),

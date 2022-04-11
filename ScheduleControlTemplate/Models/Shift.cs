@@ -41,5 +41,20 @@ namespace ScheduleControlTemplate.Models
 
         public WeekDay GetDayDetails(DayOfWeek dayOfWeek) => timeTable[dayOfWeek];
         public WeekDay GetDayDetails(DateTime date) => GetDayDetails(date.DayOfWeek);
+
+        public Shift DeltaTimeDeepClone(int onDutyDelta = 0, int offDutyDelta = 0)
+        {
+            var clone = new Shift(TimeTable.Select(wd => new WeekDay
+            {
+                Day = wd.Day,
+                Active = wd.Active,
+                OnDutyTime = wd.OnDutyTime.Add(new(0, onDutyDelta, 0)),
+                OffDutyTime = wd.OffDutyTime.Add(new(0, offDutyDelta, 0)),
+                EarlyError = wd.EarlyError,
+                LateError = wd.LateError
+            }).ToArray());
+
+            return clone;
+        }
     }
 }

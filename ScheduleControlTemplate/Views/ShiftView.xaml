@@ -27,7 +27,27 @@
                 <telerik:GridViewDataColumn Header="Dia da Semana" IsReadOnly="True"
                                             DataMemberBinding="{Binding DayStr}" Width="Auto"/>
                 <telerik:GridViewDataColumn Header="Hora de Entrada" IsReadOnly="False"
-                                            DataMemberBinding="{Binding OnDutyTime}" Width=".3*"/>
+                                            DataMemberBinding="{Binding OnDutyTime}" Width=".3*">
+                    <!--<telerik:GridViewDataColumn.CellStyleSelector>
+                        <telerik:ConditionalStyleSelector>
+                            <telerik:StyleRule Condition="Not Active">
+                                <telerik:StyleRule.Style>
+                                    <Style TargetType="telerik:GridViewCell"
+										   BasedOn="{StaticResource GridViewCellStyle}">
+                                        <Setter Property="IsEnabled"
+												Value="False" />
+                                    </Style>
+                                </telerik:StyleRule.Style>
+                            </telerik:StyleRule>
+                            <telerik:StyleRule Condition="Active">
+                                <telerik:StyleRule.Style>
+                                    <Style TargetType="telerik:GridViewCell"
+										   BasedOn="{StaticResource GridViewCellStyle}" />
+                                </telerik:StyleRule.Style>
+                            </telerik:StyleRule>
+                        </telerik:ConditionalStyleSelector>
+                    </telerik:GridViewDataColumn.CellStyleSelector>-->
+                </telerik:GridViewDataColumn>
                 <telerik:GridViewDataColumn Header="Hora de Saída" IsReadOnly="False"
                                             DataMemberBinding="{Binding OffDutyTime}" Width=".3*"/>
                 <telerik:GridViewDataColumn Header="T. Entrada" IsReadOnly="False" ToolTip="Tolerância na Entrada"
