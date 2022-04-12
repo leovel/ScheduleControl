@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ScheduleControlTemplate.Models
 {
+    [DataObject]
     public class EmployeeMetadata
     {
         public string Id { get; set; }
@@ -13,8 +15,9 @@ namespace ScheduleControlTemplate.Models
     }
 
     [DataObject]
-    public class EmployeeMetadataDataSource
+    public class EmployeeDataSource: List<EmployeeMetadata>
     {
-        public List<EmployeeMetadata> Metadata { get; set; }
+        [DataObjectMethod(DataObjectMethodType.Select)]
+        public List<EmployeeMetadata> GetAllByDepartment(string department) => this.Where( e => e.Department == department).ToList();
     }
 }

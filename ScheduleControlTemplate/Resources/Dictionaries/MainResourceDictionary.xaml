@@ -187,9 +187,21 @@
             </telerik:StyleRule>
         </telerik:ConditionalStyleSelector>
 
-        <!--#region SHIFT-->
+    <!--#region SHIFT-->
     <DataTemplate DataType="{x:Type models:Shift}">
         <views:ShiftView />
+    </DataTemplate>
+    <!--#endregion-->
+
+    <!--#region REPORT-->
+    <DataTemplate DataType="{x:Type models:EmployeeDataSource}">
+        <views:EmployeeDataSourceView />
+    </DataTemplate>
+    <!--#endregion-->
+
+    <!--#region REPORT BASE-->
+    <DataTemplate DataType="{x:Type viewModels:MetadataViewModel}">
+        <views:MetadataView />
     </DataTemplate>
     <!--#endregion-->
 
@@ -199,9 +211,5 @@
     </DataTemplate>
     <!--#endregion-->
 
-    <!--#region EDITOR-->
-    <!--<DataTemplate DataType="{x:Type viewModels:IdentificacaoReportViewModel}">
-        <views:IdentificacaoReportView />
-    </DataTemplate>-->
-    <!--#endregion-->
+
 </ResourceDictionary>

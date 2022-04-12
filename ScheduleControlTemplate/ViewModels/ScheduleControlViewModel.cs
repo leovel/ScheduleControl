@@ -151,7 +151,7 @@ namespace ScheduleControlTemplate.ViewModels
             if (BridgeTemporaries)
                 FillBridgeTemporaries();
 
-            List<EmployeeMetadata> employeeMetadata = new();
+            EmployeeDataSource employeeMetadata = new();
 
             foreach (var user in users)
             {
@@ -197,6 +197,8 @@ namespace ScheduleControlTemplate.ViewModels
 
                 employeeMetadata.Add(metadata);
             }
+
+            ViewModel = new MetadataViewModel(employeeMetadata, this);
         }
         #endregion Commands
 

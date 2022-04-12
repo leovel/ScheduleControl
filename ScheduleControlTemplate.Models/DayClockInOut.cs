@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace ScheduleControlTemplate.Models
 {
+    [DataObject]
     public class DayClockInOut
     {
         public DateTime Date { get; set; }
