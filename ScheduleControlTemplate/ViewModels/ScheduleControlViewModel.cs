@@ -1,5 +1,5 @@
-﻿using ScheduleControlTemplate.Data.Services;
-using ScheduleControlTemplate.Models;
+﻿using ScheduleControl.Data.Services;
+using ScheduleControl.Models;
 using ScheduleControlTemplate.ViewModels.Rules;
 using System;
 using System.Collections.Generic;

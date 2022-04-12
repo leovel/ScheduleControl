@@ -43,7 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScheduleControlTemplate.Models\ScheduleControlTemplate.Models.csproj" />
+    <ProjectReference Include="..\ScheduleControlTemplate.Models\ScheduleControl.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

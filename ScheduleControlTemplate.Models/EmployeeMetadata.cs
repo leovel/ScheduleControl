@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 
-namespace ScheduleControlTemplate.Models
+namespace ScheduleControl.Models
 {
     [DataObject]
     public class EmployeeMetadata

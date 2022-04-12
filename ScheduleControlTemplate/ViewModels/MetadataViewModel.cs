@@ -1,4 +1,4 @@
-﻿using ScheduleControlTemplate.Models;
+﻿using ScheduleControl.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
