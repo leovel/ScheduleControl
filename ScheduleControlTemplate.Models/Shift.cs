@@ -12,11 +12,11 @@ namespace ScheduleControlTemplate.Models
             timeTable = new Dictionary<DayOfWeek, WeekDay>
             {
                 {DayOfWeek.Sunday, new WeekDay { Day = DayOfWeek.Sunday, Active = false }},
-                {DayOfWeek.Monday, new WeekDay { Day = DayOfWeek.Monday, Active = true, OnDutyTime = new(8, 0, 0), OffDutyTime = new(15, 30, 0), EarlyError = 10, LateError = 5  }},
-                {DayOfWeek.Tuesday, new WeekDay { Day = DayOfWeek.Tuesday, Active = true, OnDutyTime = new(8, 0, 0), OffDutyTime = new(15, 30, 0), EarlyError = 10, LateError = 5  }},
-                {DayOfWeek.Wednesday, new WeekDay { Day = DayOfWeek.Wednesday, Active = true, OnDutyTime = new (8, 0, 0), OffDutyTime = new (15, 30, 0), EarlyError = 10, LateError = 5  }},
-                {DayOfWeek.Thursday, new WeekDay { Day = DayOfWeek.Thursday, Active = true, OnDutyTime = new(8, 0, 0), OffDutyTime = new(15, 30, 0), EarlyError = 10, LateError = 5  }},
-                {DayOfWeek.Friday, new WeekDay { Day = DayOfWeek.Friday, Active = true, OnDutyTime = new(8, 0, 0), OffDutyTime = new(15, 0, 0), EarlyError = 10, LateError = 5  }},
+                {DayOfWeek.Monday, new WeekDay { Day = DayOfWeek.Monday, Active = true, OnDutyTime = new TimeSpan(8, 0, 0), OffDutyTime = new TimeSpan(15, 30, 0), EarlyError = 10, LateError = 5  }},
+                {DayOfWeek.Tuesday, new WeekDay { Day = DayOfWeek.Tuesday, Active = true, OnDutyTime = new TimeSpan(8, 0, 0), OffDutyTime = new TimeSpan(15, 30, 0), EarlyError = 10, LateError = 5  }},
+                {DayOfWeek.Wednesday, new WeekDay { Day = DayOfWeek.Wednesday, Active = true, OnDutyTime = new TimeSpan(8, 0, 0), OffDutyTime = new TimeSpan(15, 30, 0), EarlyError = 10, LateError = 5  }},
+                {DayOfWeek.Thursday, new WeekDay { Day = DayOfWeek.Thursday, Active = true, OnDutyTime = new TimeSpan(8, 0, 0), OffDutyTime = new TimeSpan(15, 30, 0), EarlyError = 10, LateError = 5  }},
+                {DayOfWeek.Friday, new WeekDay { Day = DayOfWeek.Friday, Active = true, OnDutyTime = new TimeSpan(8, 0, 0), OffDutyTime = new TimeSpan(15, 0, 0), EarlyError = 10, LateError = 5  }},
                 {DayOfWeek.Saturday, new WeekDay { Day = DayOfWeek.Saturday, Active = false }}
             };
         }
@@ -46,8 +46,8 @@ namespace ScheduleControlTemplate.Models
             {
                 Day = wd.Day,
                 Active = wd.Active,
-                OnDutyTime = wd.OnDutyTime.Add(new(0, onDutyDelta, 0)),
-                OffDutyTime = wd.OffDutyTime.Add(new(0, offDutyDelta, 0)),
+                OnDutyTime = wd.OnDutyTime.Add(new TimeSpan(0, onDutyDelta, 0)),
+                OffDutyTime = wd.OffDutyTime.Add(new TimeSpan(0, offDutyDelta, 0)),
                 EarlyError = wd.EarlyError,
                 LateError = wd.LateError
             }).ToArray());

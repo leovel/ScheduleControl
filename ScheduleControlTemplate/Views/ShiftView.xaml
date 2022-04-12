@@ -4,9 +4,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:models="clr-namespace:ScheduleControlTemplate.Models"
-             xmlns:views="clr-namespace:ScheduleControlTemplate.Views"
-             xmlns:viewModels="clr-namespace:ScheduleControlTemplate.ViewModels"
+             xmlns:models="clr-namespace:ScheduleControlTemplate.Models;assembly=ScheduleControlTemplate.Models"
              d:DataContext="{d:DesignInstance Type=models:Shift}"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1024">

@@ -6,7 +6,7 @@ namespace ScheduleControlTemplate.Models
     public class DayClockInOut
     {
         public DateTime Date { get; set; }
-        private static readonly CultureInfo portuguesse = new("pt");
+        private static readonly CultureInfo portuguesse = new CultureInfo("pt");
         public string DayStr => portuguesse.DateTimeFormat.GetDayName(Date.DayOfWeek);
 
         public TimeSpan OnDutyTime { get; set; }
@@ -23,7 +23,6 @@ namespace ScheduleControlTemplate.Models
         public bool Absence => !IsHoliday && (ClockIn is null || ClockOut is null);
         public bool LateIn => !IsHoliday && !Absence && ClockIn.Value > OnDutyTime.Add(EarlyError);
         public bool EarlyOut => !IsHoliday && !Absence && ClockOut.Value < OffDutyTime.Subtract(LateError);
-        public string MyProperty { get; set; }
 
         public string Status => IsHoliday ? HolidayDescription :
             Absence ? "Ausência" :

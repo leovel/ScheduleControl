@@ -4,7 +4,7 @@ namespace ScheduleControlTemplate.Models
 {
     public class TemporaryWeekDayRange
     {
-        public static Shift BaseShift { get; set; } = new();
+        public static Shift BaseShift { get; set; } = new Shift();
         public string Description { get; set; } = string.Empty;
         public Shift AlternativeShift { get; set; } = BaseShift.DeltaTimeDeepClone();
 

@@ -12,7 +12,7 @@ namespace ScheduleControlTemplate.Models
 
         public bool Bridge { get; set; }
 
-        private static readonly CultureInfo portuguesse = new("pt");
+        private static readonly CultureInfo portuguesse = new CultureInfo("pt");
         public string DayStr => portuguesse.DateTimeFormat.GetDayName(Date.DayOfWeek);
 
         public static IEnumerable<Holiday> Holidays(int year, bool addBridges = false)
@@ -21,65 +21,65 @@ namespace ScheduleControlTemplate.Models
             {
                 new Holiday
                 {
-                    Date = new(year,1,1),
+                    Date = new DateTime(year,1,1),
                     Description = "Dia do Ano Novo"
                 },
                 new Holiday
                 {
-                    Date = new(year,2,4),
+                    Date = new DateTime(year,2,4),
                     Description = "Dia do Início da Luta Armada de Libertação Nacional"
                 },
                 new Holiday
                 {
-                    Date = new(year,3,8),
+                    Date = new DateTime(year,3,8),
                     Description = "Dia Internacional da Mulher"
                 },
                 new Holiday
                 {
-                    Date = new(year,3,23),
+                    Date = new DateTime(year,3,23),
                     Description = "Dia da Libertação da África Austral"
                 },
                 new Holiday
                 {
-                    Date = new(year,4,4),
+                    Date = new DateTime(year,4,4),
                     Description = "Dia da Paz e da Reconciliação Nacional"
                 },
                 new Holiday
                 {
-                    Date = new(year,5,1),
+                    Date = new DateTime(year,5,1),
                     Description = "Dia Internacional do Trabalhador"
                 },
                 new Holiday
                 {
-                    Date = new(year,9,17),
+                    Date = new DateTime(year,9,17),
                     Description = "Dia do Fundador da Nação e do Herói Nacional"
                 },
                 new Holiday
                 {
-                    Date = new(year,11,2),
+                    Date = new DateTime(year,11,2),
                     Description = "Dia dos Finados"
                 },
                 new Holiday
                 {
-                    Date = new(year,11,11),
+                    Date = new DateTime(year,11,11),
                     Description = "Dia da Independência"
                 },
                 new Holiday
                 {
-                    Date = new(year,12,25),
+                    Date = new DateTime(year,12,25),
                     Description = "Dia de Natal e da Família"
                 },
             };
 
             var (carnaval, sextasanta, pascoa, ccristi) = NonStaticHolidays(year);
 
-            result.Add(new()
+            result.Add(new Holiday()
             {
                 Date = carnaval,
                 Description = "Dia do Carnaval"
             });
 
-            result.Add(new()
+            result.Add(new Holiday()
             {
                 Date = sextasanta,
                 Description = "Sexta-Feira Santa"
@@ -95,7 +95,7 @@ namespace ScheduleControlTemplate.Models
 
         private static void AddBridges(List<Holiday> holidays)
         {
-            HashSet<DateTime> dates = new();
+            var dates = new HashSet<DateTime>();
 
             foreach (var holiday in holidays)
             {
@@ -120,7 +120,7 @@ namespace ScheduleControlTemplate.Models
         {
             var alternativeShift = baseShift.DeltaTimeDeepClone(onDutyDelta, offDutyDelta);
 
-            List<TemporaryWeekDayRange> temporaries = new();
+            var temporaries = new List<TemporaryWeekDayRange>();
             foreach (var bridge in holidays.Where(h => h.Bridge))
             {
                 switch (bridge.Date.DayOfWeek)
@@ -156,7 +156,7 @@ namespace ScheduleControlTemplate.Models
         private static (DateTime carnaval, DateTime sextasanta, DateTime pascoa, DateTime ccristi) NonStaticHolidays(int year)
         {
             int nRest = (year % 19) + 1;
-            DateTime day = new();
+            var day = new DateTime();
             switch (nRest)
             {
                 case 1: day = new DateTime(year, 4, 14); break;

@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
 
             <Border Background="#FF144C9C" Padding="12 6">
-                <TextBlock Text="{Binding SelectedItem.Content.ViewModel.Title, FallbackValue='PASSES - CIF'}" FontSize="16" Foreground="White" FontWeight="Medium"/>
+                <TextBlock Text="{Binding SelectedItem.Content.ViewModel.Title, FallbackValue='K&#38;M - EFECTIVIDADE'}" FontSize="16" Foreground="White" FontWeight="Medium"/>
             </Border>
 
             <telerik:RadNavigationView Grid.Row="1"
