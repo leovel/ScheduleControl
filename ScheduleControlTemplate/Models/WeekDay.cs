@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScheduleControlTemplate.Models
 {
@@ -18,7 +14,7 @@ namespace ScheduleControlTemplate.Models
 
         public bool Active { get; set; } = true;
 
-        private readonly CultureInfo portuguesse = new("pt");
+        private static readonly CultureInfo portuguesse = new("pt");
         public string DayStr => portuguesse.DateTimeFormat.GetDayName(Day);
     }
 }

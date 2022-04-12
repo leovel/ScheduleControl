@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ScheduleControlTemplate.Models
 {
@@ -14,7 +12,7 @@ namespace ScheduleControlTemplate.Models
 
         public bool Bridge { get; set; }
 
-        private readonly CultureInfo portuguesse = new("pt");
+        private static readonly CultureInfo portuguesse = new("pt");
         public string DayStr => portuguesse.DateTimeFormat.GetDayName(Date.DayOfWeek);
 
         public static IEnumerable<Holiday> Holidays(int year, bool addBridges = false)

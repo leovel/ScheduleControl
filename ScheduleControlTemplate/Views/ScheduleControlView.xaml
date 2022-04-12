@@ -15,15 +15,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" FlowDirection="LeftToRight" Margin="10,8">
             <TextBlock Text="DATA INICIAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <telerik:RadDateTimePicker SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <telerik:RadDateTimePicker Style="{StaticResource NormalRadDatePickerStyle}"
+                                       SelectedValue="{Binding Begin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        InputMode="DatePicker" x:Name="dataInicial"
                                        SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"
                                        Margin="10,8" MinWidth="120" />
 
             <TextBlock Text="DATA FINAL" Style="{StaticResource Heading3}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-            <telerik:RadDateTimePicker SelectedValue="{Binding End, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <telerik:RadDateTimePicker Style="{StaticResource NormalRadDatePickerStyle}"
+                                       SelectedValue="{Binding End, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        InputMode="DatePicker"
                                        SelectableDateStart="{Binding SelectableDateStart}" SelectableDateEnd="{Binding SelectableDateEnd}"
                                        Margin="10,8,50,8" MinWidth="120"/>
@@ -44,71 +46,77 @@
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".6*" />
-                <ColumnDefinition Width=".4*" />
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />
             </Grid.ColumnDefinitions>
-            <ContentControl Grid.Column="0" Content="{Binding MainShift}"/>
-            <telerik:RadGridView Grid.Column="1"
-                                 ItemsSource="{Binding Holidays}"
-                                 RowIndicatorVisibility="Collapsed"
-                                 AutoGenerateColumns="False"
-                                 CanUserFreezeColumns="False"
-                                 CanUserResizeColumns="False"
-                                 CanUserGroupColumns="False"
-                                 CanUserDeleteRows="False"
-                                 IsFilteringAllowed="False"
-                                 CanUserInsertRows="False"
-                                 CanUserReorderColumns="False"
-                                 CanUserSortColumns="False"
-                                 ShowGroupPanel="False"
-                                 IsReadOnly="True">
-                <telerik:RadGridView.Columns>
-                    <telerik:GridViewDataColumn Header="Data"
+            <telerik:GroupBox Grid.Column="0" Header="HORÁRIO PRINCIPAL" Style="{StaticResource NormalGroupBoxStyle}">
+                <ContentControl  Content="{Binding MainShift}"/>
+            </telerik:GroupBox>
+            <telerik:GroupBox Grid.Column="1" Header="FERIADOS NACIONAIS" Style="{StaticResource NormalGroupBoxStyle}">
+                <telerik:RadGridView ItemsSource="{Binding Holidays}" Height="250"
+                                     RowIndicatorVisibility="Collapsed"
+                                     AutoGenerateColumns="False"
+                                     CanUserFreezeColumns="False"
+                                     CanUserResizeColumns="False"
+                                     CanUserGroupColumns="False"
+                                     CanUserDeleteRows="False"
+                                     IsFilteringAllowed="False"
+                                     CanUserInsertRows="False"
+                                     CanUserReorderColumns="False"
+                                     CanUserSortColumns="False"
+                                     ShowGroupPanel="False"
+                                     IsReadOnly="True">
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn Header="Data"
                                                 DataMemberBinding="{Binding Date, StringFormat='{}{0:dd-MM-yyyy}'}" Width="Auto"/>
-                    <telerik:GridViewDataColumn Header="Dia da Semana"
+                        <telerik:GridViewDataColumn Header="Dia da Semana"
                                                 DataMemberBinding="{Binding DayStr}" Width="Auto"/>
-                    <telerik:GridViewDataColumn Header="Designação"
+                        <telerik:GridViewDataColumn Header="Designação"
                                                 DataMemberBinding="{Binding Description}" Width="*"/>
-                </telerik:RadGridView.Columns>
-            </telerik:RadGridView>
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </telerik:GroupBox>
         </Grid>
         <Grid Grid.Row="2">
-            <telerik:RadGridView ItemsSource="{Binding Temporaries}"
-                                 RowIndicatorVisibility="Collapsed"
-                                 AutoGenerateColumns="False"
-                                 CanUserFreezeColumns="False"
-                                 CanUserResizeColumns="False"
-                                 CanUserGroupColumns="False"
-                                 CanUserDeleteRows="True"
-                                 IsFilteringAllowed="False"
-                                 CanUserInsertRows="True"
-                                 CanUserReorderColumns="False"
-                                 CanUserSortColumns="False"
-                                 ShowGroupPanel="False"
-                                 GroupRenderMode="Flat"
-                                 NewRowPosition="Bottom"
-                                 IsReadOnly="False">
-                <telerik:RadGridView.Columns>
-                    <telerik:GridViewToggleRowDetailsColumn />
-                    <telerik:GridViewDataColumn Header="Data Inicial"
+            <telerik:GroupBox Header="HORÁRIOS TEMPORAIS" Style="{StaticResource NormalGroupBoxStyle}">
+                <telerik:RadGridView ItemsSource="{Binding Temporaries}"
+                                     RowIndicatorVisibility="Collapsed"
+                                     AutoGenerateColumns="False"
+                                     CanUserFreezeColumns="False"
+                                     CanUserResizeColumns="False"
+                                     CanUserGroupColumns="False"
+                                     CanUserDeleteRows="True"
+                                     IsFilteringAllowed="False"
+                                     CanUserInsertRows="True"
+                                     CanUserReorderColumns="False"
+                                     CanUserSortColumns="False"
+                                     ShowGroupPanel="False"
+                                     SelectionMode="Extended"
+                                     GroupRenderMode="Flat"
+                                     NewRowPosition="Bottom"
+                                     IsReadOnly="False">
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewToggleRowDetailsColumn />
+                        <telerik:GridViewDataColumn Header="Data Inicial"
                                                 DataMemberBinding="{Binding From, StringFormat='{}{0:dd-MM-yyyy}'}" Width=".2*"/>
-                    <telerik:GridViewDataColumn Header="Data Final"
+                        <telerik:GridViewDataColumn Header="Data Final"
                                                 DataMemberBinding="{Binding To, StringFormat='{}{0:dd-MM-yyyy}'}" Width=".2*"/>
-                    <telerik:GridViewDataColumn Header="Descrição" IsReadOnly="False"
+                        <telerik:GridViewDataColumn Header="Descrição" IsReadOnly="False"
                                                 DataMemberBinding="{Binding Description}" Width=".5*"/>
-                    <telerik:GridViewDataColumn Header="Activa" IsReadOnly="False"
-                                                DataMemberBinding="{Binding Active}" Width=".1*"/> 
-                </telerik:RadGridView.Columns>
-                <telerik:RadGridView.RowDetailsTemplate>
-                    <DataTemplate>
-                        <telerik:RadTabControl Width="702" HorizontalAlignment="Center"  Margin="8" VerticalAlignment="Center">
+                        <telerik:GridViewDataColumn Header="Activa" IsReadOnly="False"
+                                                DataMemberBinding="{Binding Active}" Width=".1*"/>
+                    </telerik:RadGridView.Columns>
+                    <telerik:RadGridView.RowDetailsTemplate>
+                        <DataTemplate>
+                            <telerik:RadTabControl Width="702" HorizontalAlignment="Center"  Margin="8" VerticalAlignment="Center">
 
-                            <telerik:RadTabItem Header="Horário Alternativo" Content="{Binding AlternativeShift}"/>
+                                <telerik:RadTabItem Header="Horário Alternativo" Content="{Binding AlternativeShift}"/>
 
-                        </telerik:RadTabControl>
-                    </DataTemplate>
-                </telerik:RadGridView.RowDetailsTemplate>
-            </telerik:RadGridView>
+                            </telerik:RadTabControl>
+                        </DataTemplate>
+                    </telerik:RadGridView.RowDetailsTemplate>
+                </telerik:RadGridView>
+            </telerik:GroupBox>
         </Grid>
     </Grid>
 

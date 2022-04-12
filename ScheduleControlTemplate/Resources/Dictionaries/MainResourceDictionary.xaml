@@ -171,7 +171,23 @@
         </Grid>
     </DataTemplate>
 
-    <!--#region SHIFT-->
+
+    <telerik:ConditionalStyleSelector x:Key="DisabledDayStyleSelector">
+            <telerik:StyleRule Condition="Not Active">
+                <telerik:StyleRule.Style>
+                    <Style TargetType="telerik:GridViewCell">
+                        <Setter Property="Visibility" Value="Hidden" />
+                    </Style>
+                </telerik:StyleRule.Style>
+            </telerik:StyleRule>
+            <telerik:StyleRule Condition="Active">
+                <telerik:StyleRule.Style>
+                    <Style TargetType="telerik:GridViewCell" />
+                </telerik:StyleRule.Style>
+            </telerik:StyleRule>
+        </telerik:ConditionalStyleSelector>
+
+        <!--#region SHIFT-->
     <DataTemplate DataType="{x:Type models:Shift}">
         <views:ShiftView />
     </DataTemplate>

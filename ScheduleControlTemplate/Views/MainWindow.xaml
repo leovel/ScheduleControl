@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         d:DesignHeight="768" d:DesignWidth="1024"
         MinHeight="640" MinWidth="1024" WindowStartupLocation="CenterScreen"
-        Title="Relatório de Efectividade">
+        Title="K&#38;M - Efectividade">
     <telerik:RadBusyIndicator BusyContent="{Binding SelectedItem.Content.ViewModel.BusyContent}"
                               IsBusy="{Binding SelectedItem.Content.ViewModel.IsBusy}"
                               IsIndeterminate="True">

@@ -118,4 +118,11 @@ namespace ScheduleControlTemplate.Data.Entities
         [BsonElement("formatID")]
         public string FormatID { get; set; }
     }
+
+    public class TransactionLogProjection
+    {
+        public string UserId { get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan Time { get; set; }
+    }
 }

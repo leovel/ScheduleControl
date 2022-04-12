@@ -125,4 +125,11 @@ namespace ScheduleControlTemplate.Data.Entities
         [BsonElement("value")]
         public string Value { get; set; }
     }
+
+    public class UserProjection
+    {
+        public string Id { get; set; }
+        public string Department { get; set; }
+        public string FullName { get; set; }
+    }
 }
