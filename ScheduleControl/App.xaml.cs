@@ -60,8 +60,22 @@ namespace ScheduleControl
             services.AddSingleton<MainWindow>();
         }
 
+        private readonly DateTime END_DATE = new DateTime(2022, 5, 1);
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            if (DateTime.Now > END_DATE)
+            {
+                RadWindow.Alert(new DialogParameters
+                {
+                    Header = "Licence Expired",
+                    Content = $"Please contact K&M - TECNOLOGIAS.",
+                    DialogStartupLocation = WindowStartupLocation.CenterScreen,
+                    Closed = (obj, args) =>
+                    {
+                        Shutdown();
+                    }
+                }); 
+            }
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }

@@ -100,7 +100,7 @@ namespace ScheduleControl.ViewModels
         public DateTime SelectableDateStart { get; } = DateTime.Today.AddYears(-2);
         public DateTime SelectableDateEnd { get; } = DateTime.UtcNow;
 
-        private bool bridges;
+        private bool bridges = true;
 
         public bool Bridges
         {
@@ -118,7 +118,7 @@ namespace ScheduleControl.ViewModels
             }
         }
 
-        private bool bridgeTemporaries;
+        private bool bridgeTemporaries = true;
 
         public bool BridgeTemporaries
         {
