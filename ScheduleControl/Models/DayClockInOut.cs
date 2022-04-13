@@ -32,8 +32,8 @@ namespace ScheduleControl.Models
 
         public string Status => IsHoliday ? HolidayDescription :
             Absence ? "Ausência" :
-            LateIn && EarlyOut ? "Entrou tarde/Saíu sedo" :
-            LateIn ? "Entrou tarde" : EarlyOut ? "Saíu sedo" :
+            LateIn && EarlyOut ? "Entrou tarde/Saíu cedo" :
+            LateIn ? "Entrou tarde" : EarlyOut ? "Saíu cedo" :
             string.Empty;
     }
 }
