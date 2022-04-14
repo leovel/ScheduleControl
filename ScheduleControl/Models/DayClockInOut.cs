@@ -13,7 +13,7 @@ namespace ScheduleControl.Models
 
         public TimeSpan OnDutyTime { get; set; }
         public TimeSpan OffDutyTime { get; set; }
-        public TimeSpan EarlyError { get; set; } 
+        public TimeSpan EarlyError { get; set; }
         public TimeSpan LateError { get; set; }
 
         public double ExpectedServiceTime => IsHoliday ? 0.00 : Math.Round(OffDutyTime.Subtract(OnDutyTime).TotalHours, 2);
