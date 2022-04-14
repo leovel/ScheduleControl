@@ -1,4 +1,5 @@
-﻿using ScheduleControl.Data.Services;
+﻿using ScheduleControl.Data.Entities;
+using ScheduleControl.Data.Services;
 using ScheduleControl.Models;
 using ScheduleControl.ViewModels.Rules;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Telerik.Windows.Controls;
 
 namespace ScheduleControl.ViewModels
@@ -141,78 +143,117 @@ namespace ScheduleControl.ViewModels
 
         private async Task OnExport()
         {
-            var users = (await _dataService.GetActiveUsersAsync())
-                .OrderBy(u => u.Department)
-                .ThenBy(u => u.FullName);
-            var transactionLogsDict = (await _dataService.GetLogsBetwenAsync(Begin, End))
-                .GroupBy(tl => (tl.UserId, tl.Date)).ToDictionary(g => g.Key);
-
-            if (BridgeTemporaries)
-                FillBridgeTemporaries();
-
-            var employeeMetadata = new List<EmployeeMetadata>();
-
-            foreach (var user in users)
+            IEnumerable<UserProjection> users = null;
+            Dictionary<(string UserId, DateTime Date), IGrouping<(string UserId, DateTime Date), TransactionLogProjection>> transactionLogsDict = null;
+            try
             {
-                var metadata = new EmployeeMetadata()
-                {
-                    Id = user.Id,
-                    FullName = user.FullName,
-                    Department = user.Department
-                };
-                for (DateTime date = Begin; date < End; date = date.AddDays(1))
-                {
-                    var horary = Temporaries.FirstOrDefault(t => t.Contains(date))?.AlternativeShift ??
-                        bridgeTemporaryList.FirstOrDefault(t => t.Contains(date))?.AlternativeShift ?? MainShift;
+                users = (await _dataService.GetActiveUsersAsync())
+                        .OrderBy(u => u.Department)
+                        .ThenBy(u => u.FullName);
+                transactionLogsDict = (await _dataService.GetLogsBetwenAsync(Begin, End))
+                    .GroupBy(tl => (tl.UserId, tl.Date)).ToDictionary(g => g.Key);
 
-                    var dayDetails = horary.GetDayDetails(date.DayOfWeek);
 
-                    if (dayDetails.Active)
+            }
+            catch (Exception e)
+            {
+
+                RadWindow.Alert(new DialogParameters
+                {
+                    Header = "Erro de Rede",
+                    Content = $"Sem conexão com o servidor.",
+                    DialogStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = MainWindowViewModel.MainContentControl,
+                    Closed = (obj, args) =>
                     {
-                        var holiday = Holidays.FirstOrDefault(h => h.Date == date);
-                        var isHoliday = holiday != null;
-                        if (transactionLogsDict.TryGetValue((user.Id, date), out var dateLog))
-                        {
-                            var orderedDayLogs = dateLog.OrderBy(dl => dl.Time);
-                            var clockIn = isHoliday ? null : orderedDayLogs.FirstOrDefault()?.Time;
-                            metadata.Details.Add(new DayClockInOut()
-                            {
-                                Date = date,
-                                OnDutyTime = dayDetails.OnDutyTime,
-                                OffDutyTime = dayDetails.OffDutyTime,
-                                EarlyError = new TimeSpan(0, dayDetails.EarlyError, 0),
-                                LateError = new TimeSpan(0, dayDetails.LateError, 0),
-
-                                ClockIn = clockIn,
-                                ClockOut = clockIn.HasValue ?
-                                orderedDayLogs.LastOrDefault(dl => dl.Time.Subtract(clockIn.Value).TotalHours > 1)?.Time : null,
-                                
-                                IsHoliday = isHoliday,
-                                HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty
-                            });
-                        }
-                        else
-                        {
-                            metadata.Details.Add(new DayClockInOut()
-                            {
-                                Date = date,
-                                OnDutyTime = dayDetails.OnDutyTime,
-                                OffDutyTime = dayDetails.OffDutyTime,
-                                EarlyError = new TimeSpan(0, dayDetails.EarlyError, 0),
-                                LateError = new TimeSpan(0, dayDetails.LateError, 0),
-                                ClockIn = null,
-                                ClockOut = null,
-                                IsHoliday = isHoliday,
-                                HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty
-                            });
-                        }
+                        Application.Current.Shutdown();
                     }
-                }
-
-                employeeMetadata.Add(metadata);
+                });
             }
 
-            ViewModel = new MetadataViewModel(employeeMetadata, Begin, End, this);
+            if (users != null && transactionLogsDict != null)
+            {
+                if (BridgeTemporaries)
+                    FillBridgeTemporaries();
+
+                var employeeMetadata = new List<EmployeeMetadata>();
+
+                foreach (var user in users)
+                {
+                    var metadata = new EmployeeMetadata()
+                    {
+                        Id = user.Id,
+                        FullName = user.FullName,
+                        Department = user.Department
+                    };
+                    for (DateTime date = Begin; date < End; date = date.AddDays(1))
+                    {
+                        var horary = Temporaries.FirstOrDefault(t => t.Contains(date))?.AlternativeShift ??
+                            bridgeTemporaryList.FirstOrDefault(t => t.Contains(date))?.AlternativeShift ?? MainShift;
+
+                        var dayDetails = horary.GetDayDetails(date.DayOfWeek);
+
+                        if (dayDetails.Active)
+                        {
+                            var holiday = Holidays.FirstOrDefault(h => h.Date == date);
+                            var isHoliday = holiday != null;
+                            if (transactionLogsDict.TryGetValue((user.Id, date), out var dateLog))
+                            {
+                                var orderedDayLogs = dateLog.OrderBy(dl => dl.Time);
+                                var clockIn = isHoliday ? null : orderedDayLogs.FirstOrDefault()?.Time;
+                                metadata.Details.Add(new DayClockInOut()
+                                {
+                                    Date = date,
+                                    OnDutyTime = dayDetails.OnDutyTime,
+                                    OffDutyTime = dayDetails.OffDutyTime,
+                                    EarlyError = new TimeSpan(0, dayDetails.EarlyError, 0),
+                                    LateError = new TimeSpan(0, dayDetails.LateError, 0),
+
+                                    ClockIn = clockIn,
+                                    ClockOut = clockIn.HasValue ?
+                                    orderedDayLogs.LastOrDefault(dl => dl.Time.Subtract(clockIn.Value).TotalHours > 1)?.Time : null,
+
+                                    IsHoliday = isHoliday,
+                                    HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty
+                                });
+                            }
+                            else
+                            {
+                                metadata.Details.Add(new DayClockInOut()
+                                {
+                                    Date = date,
+                                    OnDutyTime = dayDetails.OnDutyTime,
+                                    OffDutyTime = dayDetails.OffDutyTime,
+                                    EarlyError = new TimeSpan(0, dayDetails.EarlyError, 0),
+                                    LateError = new TimeSpan(0, dayDetails.LateError, 0),
+                                    ClockIn = null,
+                                    ClockOut = null,
+                                    IsHoliday = isHoliday,
+                                    HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty
+                                });
+                            }
+                        }
+                    }
+
+                    employeeMetadata.Add(metadata);
+                }
+
+                ViewModel = new MetadataViewModel(employeeMetadata, Begin, End, this); 
+            }
+            else
+            {
+                RadWindow.Alert(new DialogParameters
+                {
+                    Header = "Erro de Conexão",
+                    Content = $"Conectado ao Servidor, mais problema ao obter os dados.",
+                    DialogStartupLocation = WindowStartupLocation.CenterOwner,
+                    Owner = MainWindowViewModel.MainContentControl,
+                    Closed = (obj, args) =>
+                    {
+                        Application.Current.Shutdown();
+                    }
+                });
+            }
         }
         #endregion Commands
 
