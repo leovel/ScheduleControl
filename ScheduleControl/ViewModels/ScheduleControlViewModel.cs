@@ -223,7 +223,8 @@ namespace ScheduleControl.ViewModels
 
                                     ClockIn = clockIn,
                                     ClockOut = clockIn.HasValue ?
-                                    orderedDayLogs.LastOrDefault(dl => dl.Time.Subtract(clockIn.Value).TotalHours > 1)?.Time : null,
+                                    orderedDayLogs.LastOrDefault(dl => dl.Time.Subtract(clockIn.Value).TotalHours > 1 &&
+                                    dl.Time.Subtract(dayDetails.OnDutyTime).TotalHours > 1)?.Time : null,
 
                                     IsHoliday = isHoliday,
                                     HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty

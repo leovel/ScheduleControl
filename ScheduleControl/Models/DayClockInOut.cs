@@ -21,7 +21,11 @@ namespace ScheduleControl.Models
         public TimeSpan? ClockIn { get; set; }
         public TimeSpan? ClockOut { get; set; }
 
-        public double ServiceTime => Absence || IsHoliday ? 0.00 : Math.Round(ClockOut.Value.Subtract(ClockIn.Value).TotalHours, 2);
+        private TimeSpan? ServiceClockOut => ClockOut > OffDutyTime ? OffDutyTime : ClockOut;
+        private TimeSpan? ServiceClockIn => ClockIn < OnDutyTime ? OnDutyTime : ClockIn;
+        public double ServiceTime => Absence || IsHoliday ? 0.00 : Math.Round(ServiceClockOut.Value.Subtract(ServiceClockIn.Value).TotalHours, 2);
+
+        public double InWorkTime => Absence || IsHoliday ? 0.00 : Math.Round(ClockOut.Value.Subtract(ClockIn.Value).TotalHours, 2);
 
         public bool IsHoliday { get; set; }
         public string HolidayDescription { get; set; }
