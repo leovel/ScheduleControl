@@ -147,15 +147,18 @@ namespace ScheduleControl.ViewModels
             Dictionary<(string UserId, DateTime Date), IGrouping<(string UserId, DateTime Date), TransactionLogProjection>> transactionLogsDict = null;
             try
             {
+                IsBusy = true;
+                BusyContent = "Carregando dados do período selecionado...";
                 users = (await _dataService.GetActiveUsersAsync())
                         .OrderBy(u => u.Department)
                         .ThenBy(u => u.FullName);
                 transactionLogsDict = (await _dataService.GetLogsBetwenAsync(Begin, End))
                     .GroupBy(tl => (tl.UserId, tl.Date)).ToDictionary(g => g.Key);
 
-
+                IsBusy = true;
+                BusyContent = "Carregando dados do período selecionado...";
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
                 RadWindow.Alert(new DialogParameters
@@ -170,6 +173,10 @@ namespace ScheduleControl.ViewModels
                     }
                 });
             }
+            finally
+            {
+                IsBusy = false;
+            }
 
             if (users != null && transactionLogsDict != null)
             {
@@ -178,6 +185,11 @@ namespace ScheduleControl.ViewModels
 
                 var employeeMetadata = new List<EmployeeMetadata>();
 
+                IsBusy = true;
+                BusyContent = "Criando relatório...";
+
+                int currentUser = 0;
+                int currentReg = 0;
                 foreach (var user in users)
                 {
                     var metadata = new EmployeeMetadata()
@@ -232,12 +244,17 @@ namespace ScheduleControl.ViewModels
                                     HolidayDescription = isHoliday ? $"Feriado: {holiday.Description}" : string.Empty
                                 });
                             }
+                            currentReg++;
+
+                            BusyContent = $"{currentReg} Registos Criados\n{currentUser} Funcionários Analisados";
                         }
                     }
 
+                    currentUser++;
                     employeeMetadata.Add(metadata);
                 }
 
+                IsBusy = false;
                 ViewModel = new MetadataViewModel(employeeMetadata, Begin, End, this); 
             }
             else
