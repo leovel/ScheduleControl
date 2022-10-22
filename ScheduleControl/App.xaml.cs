@@ -60,7 +60,7 @@ namespace ScheduleControl
             services.AddSingleton<MainWindow>();
         }
 
-        private readonly DateTime END_DATE = new DateTime(2022, 5, 1);
+        private readonly DateTime END_DATE = new DateTime(2024, 1, 1);
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (DateTime.Now > END_DATE)
