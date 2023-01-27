@@ -35,7 +35,7 @@ namespace ScheduleControl.Data.Services
                {
                    UserId = tl.UserGuid,
                    Date = tl.Timestamp.Date,
-                   Time = tl.Timestamp.TimeOfDay
+                   Time = tl.Timestamp.TimeOfDay.Add(TimeSpan.FromHours(1)) // Hora aumentada manualmente para corrigir o os relógios mal configurados 
                });
         }
 
