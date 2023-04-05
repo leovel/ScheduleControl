@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ScheduleControl.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dept">
+          <Key>
+            <PropertyRef Name="Deptid" />
+          </Key>
+          <Property Name="Deptid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SupDeptid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="Holidayid" />
+          </Key>
+          <Property Name="Holidayid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="Days" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserCode" Type="varchar" MaxLength="20" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="10" />
+          <Property Name="Pwd" Type="varchar" MaxLength="50" />
+          <Property Name="Deptid" Type="int" Nullable="false" />
+          <Property Name="Nation" Type="varchar" MaxLength="50" />
+          <Property Name="Birthday" Type="smalldatetime" />
+          <Property Name="EmployDate" Type="smalldatetime" />
+          <Property Name="Telephone" Type="varchar" MaxLength="50" />
+          <Property Name="Duty" Type="varchar" MaxLength="50" />
+          <Property Name="NativePlace" Type="varchar" MaxLength="50" />
+          <Property Name="IDCard" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Educated" Type="varchar" MaxLength="50" />
+          <Property Name="Polity" Type="varchar" MaxLength="50" />
+          <Property Name="Specialty" Type="varchar" MaxLength="50" />
+          <Property Name="IsAtt" Type="bit" />
+          <Property Name="Isovertime" Type="bit" />
+          <Property Name="Isrest" Type="bit" />
+          <Property Name="Remark" Type="varchar" MaxLength="250" />
+          <Property Name="MgFlag" Type="smallint" />
+          <Property Name="CardNum" Type="varchar" MaxLength="10" />
+          <Property Name="Picture" Type="image" />
+          <Property Name="UserFlag" Type="int" />
+          <Property Name="Groupid" Type="int" />
+          <Property Name="ClassFlag" Type="int" />
+          <Property Name="OtherInfo" Type="image" />
+          <Property Name="admingroupid" Type="int" />
+        </EntityType>
+        <EntityType Name="UserLeave">
+          <Key>
+            <PropertyRef Name="Lsh" />
+          </Key>
+          <Property Name="Lsh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BeginTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="LeaveClassid" Type="int" Nullable="false" />
+          <Property Name="Whys" Type="varchar" MaxLength="250" />
+          <Property Name="Checked" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserShift">
+          <Key>
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="Schid" />
+            <PropertyRef Name="BeginDate" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Name="Userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Schid" Type="int" Nullable="false" />
+          <Property Name="BeginDate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="EndDate" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTempShift">
+          <Key>
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="Timeid" />
+            <PropertyRef Name="WorkDate" />
+          </Key>
+          <Property Name="Userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Timeid" Type="int" Nullable="false" />
+          <Property Name="WorkDate" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsOvertime" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BIODB.dbo.V_Class' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_Class">
+          <Key>
+            <PropertyRef Name="Schid" />
+            <PropertyRef Name="Schname" />
+            <PropertyRef Name="Cycles" />
+            <PropertyRef Name="Units" />
+            <PropertyRef Name="BeginDay" />
+            <PropertyRef Name="Timeid" />
+            <PropertyRef Name="Timename" />
+            <PropertyRef Name="Intime" />
+            <PropertyRef Name="Outtime" />
+            <PropertyRef Name="BIntime" />
+            <PropertyRef Name="EIntime" />
+            <PropertyRef Name="BOuttime" />
+            <PropertyRef Name="EOuttime" />
+            <PropertyRef Name="Latetime" />
+            <PropertyRef Name="Leavetime" />
+            <PropertyRef Name="WorkDays" />
+            <PropertyRef Name="Longtime" />
+          </Key>
+          <Property Name="Schid" Type="int" Nullable="false" />
+          <Property Name="Schname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cycles" Type="smallint" Nullable="false" />
+          <Property Name="Units" Type="smallint" Nullable="false" />
+          <Property Name="BeginDay" Type="smallint" Nullable="false" />
+          <Property Name="Timeid" Type="int" Nullable="false" />
+          <Property Name="Timename" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Intime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Outtime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="BIntime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="EIntime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="BOuttime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="EOuttime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Latetime" Type="smallint" Nullable="false" />
+          <Property Name="Leavetime" Type="smallint" Nullable="false" />
+          <Property Name="WorkDays" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Longtime" Type="smallint" Nullable="false" />
+          <Property Name="MustIn" Type="bit" />
+          <Property Name="MustOut" Type="bit" />
+          <Property Name="IsFreeTime" Type="bit" />
+          <Property Name="IsOverTime" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'BIODB.dbo.V_Record' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_Record">
+          <Key>
+            <PropertyRef Name="Logid" />
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="CheckTime" />
+            <PropertyRef Name="CheckType" />
+          </Key>
+          <Property Name="Logid" Type="int" Nullable="false" />
+          <Property Name="Userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CheckTime" Type="datetime" Nullable="false" />
+          <Property Name="CheckType" Type="int" Nullable="false" />
+          <Property Name="Sensorid" Type="int" />
+          <Property Name="WorkType" Type="int" />
+          <Property Name="AttFlag" Type="int" />
+          <Property Name="Checked" Type="bit" />
+          <Property Name="Exported" Type="bit" />
+          <Property Name="OpenDoorFlag" Type="bit" />
+          <Property Name="temperature" Type="float" />
+          <Property Name="whynoopen" Type="int" />
+          <Property Name="mask" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Deptid" Type="int" />
+          <Property Name="usercode" Type="varchar" MaxLength="20" />
+          <Property Name="Duty" Type="varchar" MaxLength="50" />
+          <Property Name="DeptName" Type="varchar" MaxLength="50" />
+          <Property Name="Clientid" Type="int" />
+          <Property Name="ClientName" Type="varchar" MaxLength="50" />
+          <Property Name="deviceflag" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="StatusChar" Type="varchar" MaxLength="2" />
+          <Property Name="StatusText" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ScheduleControlDataStoreContainer">
+          <EntitySet Name="Dept" EntityType="Self.Dept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userinfo" EntityType="Self.Userinfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLeave" EntityType="Self.UserLeave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserShift" EntityType="Self.UserShift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTempShift" EntityType="Self.UserTempShift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_Class" EntityType="Self.V_Class" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Class].[Schid] AS [Schid], 
+    [V_Class].[Schname] AS [Schname], 
+    [V_Class].[Cycles] AS [Cycles], 
+    [V_Class].[Units] AS [Units], 
+    [V_Class].[BeginDay] AS [BeginDay], 
+    [V_Class].[Timeid] AS [Timeid], 
+    [V_Class].[Timename] AS [Timename], 
+    [V_Class].[Intime] AS [Intime], 
+    [V_Class].[Outtime] AS [Outtime], 
+    [V_Class].[BIntime] AS [BIntime], 
+    [V_Class].[EIntime] AS [EIntime], 
+    [V_Class].[BOuttime] AS [BOuttime], 
+    [V_Class].[EOuttime] AS [EOuttime], 
+    [V_Class].[Latetime] AS [Latetime], 
+    [V_Class].[Leavetime] AS [Leavetime], 
+    [V_Class].[WorkDays] AS [WorkDays], 
+    [V_Class].[Longtime] AS [Longtime], 
+    [V_Class].[MustIn] AS [MustIn], 
+    [V_Class].[MustOut] AS [MustOut], 
+    [V_Class].[IsFreeTime] AS [IsFreeTime], 
+    [V_Class].[IsOverTime] AS [IsOverTime]
+    FROM [dbo].[V_Class] AS [V_Class]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Record" EntityType="Self.V_Record" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Record].[Logid] AS [Logid], 
+    [V_Record].[Userid] AS [Userid], 
+    [V_Record].[CheckTime] AS [CheckTime], 
+    [V_Record].[CheckType] AS [CheckType], 
+    [V_Record].[Sensorid] AS [Sensorid], 
+    [V_Record].[WorkType] AS [WorkType], 
+    [V_Record].[AttFlag] AS [AttFlag], 
+    [V_Record].[Checked] AS [Checked], 
+    [V_Record].[Exported] AS [Exported], 
+    [V_Record].[OpenDoorFlag] AS [OpenDoorFlag], 
+    [V_Record].[temperature] AS [temperature], 
+    [V_Record].[whynoopen] AS [whynoopen], 
+    [V_Record].[mask] AS [mask], 
+    [V_Record].[Name] AS [Name], 
+    [V_Record].[Deptid] AS [Deptid], 
+    [V_Record].[usercode] AS [usercode], 
+    [V_Record].[Duty] AS [Duty], 
+    [V_Record].[DeptName] AS [DeptName], 
+    [V_Record].[Clientid] AS [Clientid], 
+    [V_Record].[ClientName] AS [ClientName], 
+    [V_Record].[deviceflag] AS [deviceflag], 
+    [V_Record].[StatusID] AS [StatusID], 
+    [V_Record].[StatusChar] AS [StatusChar], 
+    [V_Record].[StatusText] AS [StatusText]
+    FROM [dbo].[V_Record] AS [V_Record]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScheduleControl.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dept">
+          <Key>
+            <PropertyRef Name="Deptid" />
+          </Key>
+          <Property Name="Deptid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SupDeptid" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="Holidayid" />
+          </Key>
+          <Property Name="Holidayid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Days" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Userinfo">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="Userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deptid" Type="Int32" Nullable="false" />
+          <Property Name="Nation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="EmployDate" Type="DateTime" Precision="0" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NativePlace" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Educated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Polity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Specialty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAtt" Type="Boolean" />
+          <Property Name="Isovertime" Type="Boolean" />
+          <Property Name="Isrest" Type="Boolean" />
+          <Property Name="Remark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MgFlag" Type="Int16" />
+          <Property Name="CardNum" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserFlag" Type="Int32" />
+          <Property Name="Groupid" Type="Int32" />
+          <Property Name="ClassFlag" Type="Int32" />
+          <Property Name="OtherInfo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="admingroupid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UserLeave">
+          <Key>
+            <PropertyRef Name="Lsh" />
+          </Key>
+          <Property Name="Lsh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeginTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LeaveClassid" Type="Int32" Nullable="false" />
+          <Property Name="Whys" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Checked" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserShift">
+          <Key>
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="Schid" />
+            <PropertyRef Name="BeginDate" />
+            <PropertyRef Name="EndDate" />
+          </Key>
+          <Property Name="Userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Schid" Type="Int32" Nullable="false" />
+          <Property Name="BeginDate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EndDate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTempShift">
+          <Key>
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="Timeid" />
+            <PropertyRef Name="WorkDate" />
+          </Key>
+          <Property Name="Userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timeid" Type="Int32" Nullable="false" />
+          <Property Name="WorkDate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsOvertime" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="V_Class">
+          <Key>
+            <PropertyRef Name="Schid" />
+            <PropertyRef Name="Schname" />
+            <PropertyRef Name="Cycles" />
+            <PropertyRef Name="Units" />
+            <PropertyRef Name="BeginDay" />
+            <PropertyRef Name="Timeid" />
+            <PropertyRef Name="Timename" />
+            <PropertyRef Name="Intime" />
+            <PropertyRef Name="Outtime" />
+            <PropertyRef Name="BIntime" />
+            <PropertyRef Name="EIntime" />
+            <PropertyRef Name="BOuttime" />
+            <PropertyRef Name="EOuttime" />
+            <PropertyRef Name="Latetime" />
+            <PropertyRef Name="Leavetime" />
+            <PropertyRef Name="WorkDays" />
+            <PropertyRef Name="Longtime" />
+          </Key>
+          <Property Name="Schid" Type="Int32" Nullable="false" />
+          <Property Name="Schname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cycles" Type="Int16" Nullable="false" />
+          <Property Name="Units" Type="Int16" Nullable="false" />
+          <Property Name="BeginDay" Type="Int16" Nullable="false" />
+          <Property Name="Timeid" Type="Int32" Nullable="false" />
+          <Property Name="Timename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Intime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Outtime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BIntime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EIntime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BOuttime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EOuttime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Latetime" Type="Int16" Nullable="false" />
+          <Property Name="Leavetime" Type="Int16" Nullable="false" />
+          <Property Name="WorkDays" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Longtime" Type="Int16" Nullable="false" />
+          <Property Name="MustIn" Type="Boolean" />
+          <Property Name="MustOut" Type="Boolean" />
+          <Property Name="IsFreeTime" Type="Boolean" />
+          <Property Name="IsOverTime" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="V_Record">
+          <Key>
+            <PropertyRef Name="Logid" />
+            <PropertyRef Name="Userid" />
+            <PropertyRef Name="CheckTime" />
+            <PropertyRef Name="CheckType" />
+          </Key>
+          <Property Name="Logid" Type="Int32" Nullable="false" />
+          <Property Name="Userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CheckTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CheckType" Type="Int32" Nullable="false" />
+          <Property Name="Sensorid" Type="Int32" />
+          <Property Name="WorkType" Type="Int32" />
+          <Property Name="AttFlag" Type="Int32" />
+          <Property Name="Checked" Type="Boolean" />
+          <Property Name="Exported" Type="Boolean" />
+          <Property Name="OpenDoorFlag" Type="Boolean" />
+          <Property Name="temperature" Type="Double" />
+          <Property Name="whynoopen" Type="Int32" />
+          <Property Name="mask" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deptid" Type="Int32" />
+          <Property Name="usercode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Duty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Clientid" Type="Int32" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="deviceflag" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="StatusChar" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="StatusText" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="BioDataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dept" EntityType="Self.Dept" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" />
+          <EntitySet Name="Userinfo" EntityType="Self.Userinfo" />
+          <EntitySet Name="UserLeave" EntityType="Self.UserLeave" />
+          <EntitySet Name="UserShift" EntityType="Self.UserShift" />
+          <EntitySet Name="UserTempShift" EntityType="Self.UserTempShift" />
+          <EntitySet Name="V_Class" EntityType="Self.V_Class" />
+          <EntitySet Name="V_Record" EntityType="Self.V_Record" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ScheduleControlDataStoreContainer" CdmEntityContainer="BioDataContext">
+          <EntitySetMapping Name="Dept">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.Dept">
+              <MappingFragment StoreEntitySet="Dept">
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="SupDeptid" ColumnName="SupDeptid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holiday">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.Holiday">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="Holidayid" ColumnName="Holidayid" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BDate" ColumnName="BDate" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Userinfo">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.Userinfo">
+              <MappingFragment StoreEntitySet="Userinfo">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="Nation" ColumnName="Nation" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="EmployDate" ColumnName="EmployDate" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Duty" ColumnName="Duty" />
+                <ScalarProperty Name="NativePlace" ColumnName="NativePlace" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Educated" ColumnName="Educated" />
+                <ScalarProperty Name="Polity" ColumnName="Polity" />
+                <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+                <ScalarProperty Name="IsAtt" ColumnName="IsAtt" />
+                <ScalarProperty Name="Isovertime" ColumnName="Isovertime" />
+                <ScalarProperty Name="Isrest" ColumnName="Isrest" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="MgFlag" ColumnName="MgFlag" />
+                <ScalarProperty Name="CardNum" ColumnName="CardNum" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="UserFlag" ColumnName="UserFlag" />
+                <ScalarProperty Name="Groupid" ColumnName="Groupid" />
+                <ScalarProperty Name="ClassFlag" ColumnName="ClassFlag" />
+                <ScalarProperty Name="OtherInfo" ColumnName="OtherInfo" />
+                <ScalarProperty Name="admingroupid" ColumnName="admingroupid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLeave">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.UserLeave">
+              <MappingFragment StoreEntitySet="UserLeave">
+                <ScalarProperty Name="Lsh" ColumnName="Lsh" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="BeginTime" ColumnName="BeginTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="LeaveClassid" ColumnName="LeaveClassid" />
+                <ScalarProperty Name="Whys" ColumnName="Whys" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserShift">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.UserShift">
+              <MappingFragment StoreEntitySet="UserShift">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Schid" ColumnName="Schid" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTempShift">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.UserTempShift">
+              <MappingFragment StoreEntitySet="UserTempShift">
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="Timeid" ColumnName="Timeid" />
+                <ScalarProperty Name="WorkDate" ColumnName="WorkDate" />
+                <ScalarProperty Name="IsOvertime" ColumnName="IsOvertime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Class">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.V_Class">
+              <MappingFragment StoreEntitySet="V_Class">
+                <ScalarProperty Name="Schid" ColumnName="Schid" />
+                <ScalarProperty Name="Schname" ColumnName="Schname" />
+                <ScalarProperty Name="Cycles" ColumnName="Cycles" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="BeginDay" ColumnName="BeginDay" />
+                <ScalarProperty Name="Timeid" ColumnName="Timeid" />
+                <ScalarProperty Name="Timename" ColumnName="Timename" />
+                <ScalarProperty Name="Intime" ColumnName="Intime" />
+                <ScalarProperty Name="Outtime" ColumnName="Outtime" />
+                <ScalarProperty Name="BIntime" ColumnName="BIntime" />
+                <ScalarProperty Name="EIntime" ColumnName="EIntime" />
+                <ScalarProperty Name="BOuttime" ColumnName="BOuttime" />
+                <ScalarProperty Name="EOuttime" ColumnName="EOuttime" />
+                <ScalarProperty Name="Latetime" ColumnName="Latetime" />
+                <ScalarProperty Name="Leavetime" ColumnName="Leavetime" />
+                <ScalarProperty Name="WorkDays" ColumnName="WorkDays" />
+                <ScalarProperty Name="Longtime" ColumnName="Longtime" />
+                <ScalarProperty Name="MustIn" ColumnName="MustIn" />
+                <ScalarProperty Name="MustOut" ColumnName="MustOut" />
+                <ScalarProperty Name="IsFreeTime" ColumnName="IsFreeTime" />
+                <ScalarProperty Name="IsOverTime" ColumnName="IsOverTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Record">
+            <EntityTypeMapping TypeName="ScheduleControl.Data.V_Record">
+              <MappingFragment StoreEntitySet="V_Record">
+                <ScalarProperty Name="Logid" ColumnName="Logid" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="CheckTime" ColumnName="CheckTime" />
+                <ScalarProperty Name="CheckType" ColumnName="CheckType" />
+                <ScalarProperty Name="Sensorid" ColumnName="Sensorid" />
+                <ScalarProperty Name="WorkType" ColumnName="WorkType" />
+                <ScalarProperty Name="AttFlag" ColumnName="AttFlag" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="Exported" ColumnName="Exported" />
+                <ScalarProperty Name="OpenDoorFlag" ColumnName="OpenDoorFlag" />
+                <ScalarProperty Name="temperature" ColumnName="temperature" />
+                <ScalarProperty Name="whynoopen" ColumnName="whynoopen" />
+                <ScalarProperty Name="mask" ColumnName="mask" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Deptid" ColumnName="Deptid" />
+                <ScalarProperty Name="usercode" ColumnName="usercode" />
+                <ScalarProperty Name="Duty" ColumnName="Duty" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Clientid" ColumnName="Clientid" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="deviceflag" ColumnName="deviceflag" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusChar" ColumnName="StatusChar" />
+                <ScalarProperty Name="StatusText" ColumnName="StatusText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
