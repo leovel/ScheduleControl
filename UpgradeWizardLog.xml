@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_UpgradeWizard_Files\UpgradeWizardLog.xslt"?>
+<log>
+  <event>Get project references.</event>
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Projects\VS\ScheduleControl\ScheduleControl\ScheduleControl.csproj" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="App.config" path="D:\Projects\VS\ScheduleControl\ScheduleControl\App.config" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="packages.config" path="D:\Projects\VS\ScheduleControl\ScheduleControl\packages.config" />
+  <event action="Analyze" type="Success" name="Resources.resx" path="D:\Projects\VS\ScheduleControl\ScheduleControl\Properties\Resources.resx" />
+  <event action="Analyze" type="Success" name="MetadataReport.resx" path="D:\Projects\VS\ScheduleControl\ScheduleControl\Reports\MetadataReport.resx" />
+  <event action="Analyze" type="Success" name="ScheduleControl" path="D:\Projects\VS\ScheduleControl\ScheduleControl\ScheduleControl.csproj" />
+  <event action="Analyze" type="Success" name="ScheduleControl" path="D:\Projects\VS\ScheduleControl\ScheduleControl.sln" />
+  <event action="Upgrade" type="Success" name="Assembly References" path="D:\Projects\VS\ScheduleControl\ScheduleControl\ScheduleControl.csproj" />
+  <event action="Upgrade" type="Success" name="MetadataReport.resx" path="D:\Projects\VS\ScheduleControl\ScheduleControl\Reports\MetadataReport.resx" />
+  <event action="Upgrade" type="Success" name="ScheduleControl" path="D:\Projects\VS\ScheduleControl\ScheduleControl\ScheduleControl.csproj" />
+  <event action="Upgrade" type="Success" name="ScheduleControl" path="D:\Projects\VS\ScheduleControl\ScheduleControl.sln" />
+</log>
